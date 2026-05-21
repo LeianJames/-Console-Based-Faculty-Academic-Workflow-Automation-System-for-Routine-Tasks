@@ -3,6 +3,21 @@ import numpy as np
 from database import get_all_students_df
 from models import Section
 
+def class_record(section: Section):
+    print("\n  [Class Record Tracker]")
+    print("  1. View single student")
+    print("  2. View all students")
+
+    choice = input("\n  Enter choice: ").strip()
+
+    if choice == "1":
+        display_single_student(section)
+    elif choice == "2":
+        display_all_students(section)
+    else:
+        print("  Invalid choice.")
+
+
 DISPLAY_COLUMNS = ["student_number", "name", "prelims", "lab_act1", "lab_act2",
                    "midterms", "semestral_project", "finals", "final_grade"]
 

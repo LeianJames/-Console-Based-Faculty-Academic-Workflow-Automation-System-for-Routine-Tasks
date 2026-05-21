@@ -39,4 +39,32 @@ def apply_and_confirm(student, field, amount):
 
 def ask_add_more():
     while True:
-        again = input("\n  Successfully added incentives, do you want to add more? Y/N: ").s
+        again = input("\n  Successfully added incentives, do you want to add more? Y/N: ").strip().upper()
+        if again in ("Y", "N"):
+            return again == "Y"
+        print("  Please enter Y or N.")
+
+def incentives(section: Section):
+    print("\n  [Adding Incentives]")
+    students = section.get_students()
+    if not students:
+        print("  No students found in this section.")
+        return
+
+    for s in students:
+        print(f"    {s.student_number} - {s.name}")
+
+    student_number = input("\n  Enter student number: ").strip()
+    student = section.get_student_by_number(student_number)
+
+    if not student:
+        print("  Student not found.")
+        return
+
+    while True:
+        field = pick_grade_field()
+        amount = pick_incentive_amount()
+        apply_and_confirm(student, field, amount)
+
+        if not ask_add_more():
+            break
