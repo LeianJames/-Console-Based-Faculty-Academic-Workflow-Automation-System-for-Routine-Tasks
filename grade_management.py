@@ -48,6 +48,13 @@ def enter_grades_for_student(student):
     return "done"
 
 
+def display_students(students):
+    print(f"\n  {'#':<6} {'Name':<25}")
+    print(f"  {'-'*6} {'-'*25}")
+    for s in students:
+        print(f"  {s.student_number:<6} {s.name:<25}")
+
+
 def grade_management(section: Section):
     print("\n  [Grade Management]")
     print("  Would you like to:")
@@ -62,9 +69,8 @@ def grade_management(section: Section):
             print("  No students found in this section.")
             return
 
-        print("\n  Students:")
-        for s in students:
-            print(f"    {s.student_number} - {s.name}")
+        print(f"\n  Students in Section {section.section_name}:")
+        display_students(students)
 
         student_number = input("\n  Enter student number: ").strip()
         student = section.get_student_by_number(student_number)
