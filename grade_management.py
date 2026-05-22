@@ -3,6 +3,15 @@ from models import Section
 GRADE_FIELDS = ["prelims", "lab_act1", "lab_act2", "midterms", "semestral_project", "finals"]
 GRADE_LABELS = ["Prelims", "Lab Act 1", "Lab Act 2", "Midterms", "Semestral Project", "Finals"]
 
+GRADE_MAX = {
+    "prelims":           70,
+    "lab_act1":          100,
+    "lab_act2":          100,
+    "midterms":          70,
+    "semestral_project": 100,
+    "finals":            70,
+}
+
 NOTES = "(type 'exit' to leave, type 'b' to go back, type '\\0' if no score)"
 
 def enter_grades_for_student(student):
@@ -15,8 +24,9 @@ def enter_grades_for_student(student):
     while i < len(GRADE_FIELDS):
         field = GRADE_FIELDS[i]
         label = GRADE_LABELS[i]
+        max_score = GRADE_MAX[field]
 
-        raw = input(f"    {label}: ").strip()
+        raw = input(f"    {label} (max {max_score}): ").strip()
 
         if raw.lower() == "exit":
             print("  Exiting grade entry...")
@@ -36,8 +46,8 @@ def enter_grades_for_student(student):
 
         try:
             value = float(raw)
-            if value < 0 or value > 100:
-                print("  Please enter a value between 0 and 100.")
+            if value < 0 or value > max_score:
+                print(f"  Please enter a value between 0 and {max_score}.")
                 continue
             grades.update_field(field, value)
             i += 1

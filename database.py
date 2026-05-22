@@ -4,12 +4,12 @@ import pandas as pd
 DB_NAME = "class_record.db"
 
 GRADE_WEIGHTS = {
-    "prelims": 0.20,
+    "prelims": 0.15,
     "lab_act1": 0.10,
     "lab_act2": 0.10,
-    "midterms": 0.20,
-    "semestral_project": 0.15,
-    "finals": 0.25,
+    "midterms": 0.15,
+    "semestral_project": 0.30,
+    "finals": 0.20,
 }
 
 def get_connection():
