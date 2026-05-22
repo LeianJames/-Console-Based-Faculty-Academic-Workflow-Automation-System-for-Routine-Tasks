@@ -73,3 +73,37 @@ def display_all_students(section: Section):
     if df.empty:
         print("  No students found in this section.")
         return
+
+    # Column widths
+    col_widths = {
+        "student_number":    4,
+        "name":              25,
+        "prelims":           8,
+        "lab_act1":          9,
+        "lab_act2":          9,
+        "midterms":          8,
+        "semestral_project": 17,
+        "finals":            7,
+        "final_grade":       11,
+    }
+
+    # Header
+    header = "  "
+    for col in DISPLAY_COLUMNS:
+        label = COLUMN_LABELS[col]
+        header += f"{label:<{col_widths[col]}} "
+    print(f"\n  Class Record — Section {section.section_name}")
+    print(f"  {'-' * (sum(col_widths.values()) + len(col_widths))}")
+    print(header)
+    print(f"  {'-' * (sum(col_widths.values()) + len(col_widths))}")
+
+    # Rows
+    for _, row in df.iterrows():
+        line = "  "
+        for col in DISPLAY_COLUMNS:
+            val = row[col]
+            if col in ("student_number", "name"):
+                line += f"{str(val):<{col_widths[col]}} "
+            else:
+                line += f"{format_score(val):<{col_widths[col]}} "
+        print(line)
